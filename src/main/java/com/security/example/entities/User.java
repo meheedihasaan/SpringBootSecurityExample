@@ -1,7 +1,12 @@
 package com.security.example.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class User {
 	
+	@Id
 	private String username;
 	private String password;
 	private String email;

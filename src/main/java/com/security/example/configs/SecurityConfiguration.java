@@ -12,17 +12,27 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration{
-
+	
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain publicFilterChain(HttpSecurity http) throws Exception{
 		http
-			.authorizeHttpRequests()
-			.anyRequest()
-			.authenticated()
-			.and()
-			.httpBasic();
+			.csrf(csrf->csrf.disable())
+			.authorizeHttpRequests(auth-> {
+				//auth.requestMatchers("/home", "/login", "/register").permitAll();
+				auth.requestMatchers("/signin").permitAll();
+				auth.requestMatchers("/public/**").hasRole("NORMAL");
+				auth.requestMatchers("/users/**").hasRole("ADMIN");
+			})
+			//.httpBasic();      //For Basic Authentication
+			.formLogin()     //For Form based Authentication
+			.loginPage("/signin")
+			.loginProcessingUrl("/doLogin")
+			.defaultSuccessUrl("/users");
+		
 		return http.build();
+			
 	}
+	
 	
 	@Bean
 	public InMemoryUserDetailsManager userDetailsService() {
