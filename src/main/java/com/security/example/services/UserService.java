@@ -9,12 +9,13 @@ import com.security.example.entities.User;
 @Service
 public class UserService {
 
+	//Fake Service
 	List<User> users = new ArrayList<>();
 	
 	public UserService() {
-		this.users.add(new User("mehedi", "1234", "mehedihasan111941@gmail.com"));
-		this.users.add(new User("fariya", "1234", "fariya@gmail.com"));
-		this.users.add(new User("mahin", "1234", "mahin@gmail.com"));
+		users.add(new User("Mehedi", "mehedi@gmail.com", "1234", "ADMIN"));
+		users.add(new User("Mahin", "mahin@gmail.com", "1234", "NORMAL"));
+		users.add(new User("Fariya", "fariya@gmail.com", "1234", "NORMAL"));
 	}
 	
 	//To get all the users
